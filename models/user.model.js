@@ -1,10 +1,21 @@
-class UserModel {
-  constructor(params) {
-    this.id = params.id;
-    this.name = params.name;
-    this.login = params.login;
-    this.password = params.password;
-  }
-}
+const mongoose = require('../providers/db.provider');
 
+const UserSchema = mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  password: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  name: {
+    type: String,
+    required: true
+  }
+});
+
+const UserModel = mongoose.model('User', UserSchema);
 module.exports = UserModel;

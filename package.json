@@ -6,13 +6,16 @@
   "scripts": {
     "start": "node bin/www",
     "watch": "nodemon bin/www",
+    "db": "nodemon providers/db.provider.js",
     "play-mongodb": "nodemon playground/mongodb.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.3",
-    "mongodb": "^3.0.6"
+    "mongodb": "^3.0.6",
+    "mongoose": "^5.0.14"
   }
 }

@@ -1,15 +1,19 @@
+const { ObjectID } = require('mongodb');
 const UserModel = require('../models/user.model');
 
 class UsersService {
   constructor() { }
 
-  getUserById(id) {
+  createUser(params) {
     return new UserModel({
-      id,
-      name: 'test name',
-      login: 'testLogin',
-      password: 'testPassword'
-    });
+      email: params.email,
+      password: params.password,
+      name: params.name,
+    }).save();
+  }
+
+  getUserById(id) {
+    return UserModel.find({ _id: new ObjectID('5acdf2be3d92d76d608b3034') })
   }
 }
 
