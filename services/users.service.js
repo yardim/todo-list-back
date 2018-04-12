@@ -9,7 +9,7 @@ class UsersService {
       email: params.email,
       password: params.password,
       name: params.name,
-    }).save();
+    }).generateToken();
   }
 
   getUserById(id) {

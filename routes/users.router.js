@@ -8,20 +8,20 @@ class UsersRouter {
   }
 
   create(req, res) {
-    usersService.createUser(req.body).then(user => {
-      res.json(user);
+    usersService.createUser(req.body).then(token => {
+      res.status(200).json({ token });
     }).catch(err => {
       console.error(`User creation error: ${err.message}`);
-      res.json({ status: 500 });
+      res.status(400).send(err);
     });
   }
 
   read(req, res) {
-    usersService.getUserById(req.params.id).then(doc => {
-      res.json(doc)
+    usersService.getUserById(req.params.id).then(user => {
+      res.status(200).json(user)
     }).catch(err => {
       console.error(`Getting user error: ${err.message}`);
-      res.json({ status: 404 });
+      res.status(404).send(err);
     });
   }
 }

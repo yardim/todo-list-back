@@ -7,6 +7,7 @@
     "start": "node bin/www",
     "watch": "nodemon bin/www",
     "db": "nodemon providers/db.provider.js",
+    "play-hash": "nodemon playground/hashing.js",
     "play-mongodb": "nodemon playground/mongodb.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,8 +15,11 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "crypto-js": "^3.1.9-1",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
     "mongodb": "^3.0.6",
-    "mongoose": "^5.0.14"
+    "mongoose": "^5.0.14",
+    "validator": "^9.4.1"
   }
 }
