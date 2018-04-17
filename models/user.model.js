@@ -1,5 +1,7 @@
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
+
+const { authSecret } = require('../config/config');
 const mongoose = require('../providers/db.provider');
 
 const UserSchema = mongoose.Schema({
@@ -29,7 +31,7 @@ const UserSchema = mongoose.Schema({
 
 UserSchema.methods.generateToken = function() {
   const user = this;
-  const token = jwt.sign({ _id: user._id.toHexString()}, 'abc123').toString();
+  const token = jwt.sign({ _id: user._id.toHexString() }, authSecret).toString();
   user.tokens.push(token);
 
   return user.save().then(() => {

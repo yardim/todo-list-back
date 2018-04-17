@@ -4,4 +4,6 @@ module.exports = {
   dbPort: 27017,
   dbHost: 'localhost',
   dbName: 'TodoList',
+  authSecret: 'abc123',
+  hashSecret: '321cba',
 }

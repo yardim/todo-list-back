@@ -4,7 +4,8 @@ const usersService = require('../services/users.service');
 class UsersRouter {
   constructor(router) {
     router.post('/create', this.create);
-    router.get('/:id', this.read);
+    router.get('/', this.read);
+    router.post('/login', this.login);
   }
 
   create(req, res) {
@@ -17,10 +18,29 @@ class UsersRouter {
   }
 
   read(req, res) {
-    usersService.getUserById(req.params.id).then(user => {
-      res.status(200).json(user)
+    const token = req.get('x-auth');
+
+    usersService.getUserByToken(token).then(user => {
+      if (user) {
+        return res.status(200).json(user)
+      }
+
+      res.status(404);
     }).catch(err => {
-      console.error(`Getting user error: ${err.message}`);
+      console.error(`Getting user by token error: ${err.message}`);
+      res.status(404).send(err);
+    });
+  }
+
+  login(req, res) {
+    usersService.getUserByCredentials(req.body).then(user => {
+      if (user) {
+        return res.json(user);
+      }
+
+      res.status(404).send();
+    }).catch(err => {
+      console.error(`Login user error: ${err.message}`);
       res.status(404).send(err);
     });
   }
