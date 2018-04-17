@@ -6,6 +6,7 @@ class UsersRouter {
     router.post('/create', this.create);
     router.get('/', this.read);
     router.post('/login', this.login);
+    router.put('/update', this.update);
   }
 
   create(req, res) {
@@ -42,6 +43,24 @@ class UsersRouter {
     }).catch(err => {
       console.error(`Login user error: ${err.message}`);
       res.status(404).send(err);
+    });
+  }
+
+  update(req, res) {
+    const token = req.get('x-auth');
+
+    usersService.updateUser({
+      token,
+      updateOptions: req.body
+    }).then(user => {
+      if (user) {
+        return res.json(user);
+      }
+  
+      res.status(400).send();
+    }).catch(err => {
+      console.error(`Update user error: ${err.message}`);
+      res.status(400).send(err);
     });
   }
 }

@@ -47,6 +47,27 @@ class UsersService {
       return Promise.reject(new Error('Wrong password'));
     });
   }
+
+  updateUser(data) {
+    const { token, updateOptions } = data;
+
+    return UserModel.findOneAndUpdate(
+      { tokens: token },
+      {
+        $set: {
+          ...updateOptions
+        }
+      },
+      {
+        new: true
+      }
+    ).then(user => {
+      console.log(user);
+      console.log(updateOptions);
+      return user;
+    });
+  }
 }
+
 
 module.exports = new UsersService();
