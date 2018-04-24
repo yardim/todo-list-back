@@ -3,8 +3,6 @@ const UserModel = require('../models/user.model');
 var bcrypt = require('bcryptjs');
 
 class UsersService {
-  constructor() { }
-
   createUser(params) {
     return this.hashPassword(params.password)
       .then(hashedPassword => {
@@ -62,8 +60,6 @@ class UsersService {
         new: true
       }
     ).then(user => {
-      console.log(user);
-      console.log(updateOptions);
       return user;
     });
   }
