@@ -5,8 +5,8 @@ class TodoListsRouter {
   constructor(router) {
     router.post('/create', this.create);
     router.get('/', this.read);
-    router.put('/update/:id', this.update);
-    router.delete('/delete/:id', this.delete);
+    router.put('/update/:name', this.update);
+    router.delete('/delete/:name', this.delete);
   }
 
   create(req, res) {
@@ -18,18 +18,35 @@ class TodoListsRouter {
   }
 
   read(req, res) {
-    res.send('read todolist');
-    todoListsService.getTodoLists();
+    todoListsService.getTodoLists().then(todoLists => {
+      res.json(todoLists);
+    }).catch(err => {
+      res.status(404).json(err);
+    });
   }
 
   update(req, res) {
-    res.send('update todolist');
-    todoListsService.updateTodoList(req.params.id, req.body);
+    todoListsService.updateTodoList(req.params.name, req.body).then(todoList => {
+      if (todoList) {
+        return res.json(todoList);
+      }
+
+      res.status(404).send();
+    }).catch(err => {
+      res.status(404).send();
+    });
   }
 
   delete(req, res) {
-    res.send('delete todolist');
-    todoListsService.deleteTodoList(req.params.id);
+    todoListsService.deleteTodoList(req.params.name).then(todoList => {
+      if (todoList) {
+        res.json(todoList);
+      }
+
+      res.status(404).send();
+    }).catch(err => {
+      res.status(404).send();
+    });
   }
 }
 

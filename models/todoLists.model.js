@@ -9,15 +9,14 @@ const TodoListsSchema = mongoose.Schema({
   },
   todos: [
     {
-      name: {
+      value: {
         type: String,
         required: true
       },
       isDone: {
         type: Boolean,
         default: false
-      },
-      default: []
+      }
     }
   ]
 });

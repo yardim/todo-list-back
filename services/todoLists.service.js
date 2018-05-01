@@ -1,21 +1,30 @@
 const TodoListsModel = require('../models/todoLists.model');
+const _ = require('lodash');
 
 class TodoListsService {
   createList(params) {
-    console.log(params);
     return new TodoListsModel(params).save();
   }
 
   getTodoLists() {
-    console.log('getTodoLists');
+    return TodoListsModel.find().then(todoLists => {
+      return todoLists.map(list => ({
+        name: list.name,
+        todos: list.todos
+      }));
+    });
   }
 
-  updateTodoList(id, params) {
-    console.log(id, params);
+  updateTodoList(name, params) {
+    return TodoListsModel.findOneAndUpdate({ name }, {
+      ..._.pick(params, ['name'])
+    }, {
+      new: true
+    });
   }
 
-  deleteTodoList(id) {
-    console.log(id);
+  deleteTodoList(name) {
+    return TodoListsModel.findOneAndRemove({ name });
   }
 }
 
