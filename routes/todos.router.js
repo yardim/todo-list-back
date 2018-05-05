@@ -5,7 +5,7 @@ class TodosRouter {
   constructor(router) {
     router.post('/:list', this.create);
     router.get('/:list', this.read);
-    router.put('/:list/:id', this.update);
+    router.put('/:id', this.update);
     router.delete('/:list/:id', this.delete);
   }
 
@@ -35,24 +35,29 @@ class TodosRouter {
 
   update(req, res) {
     todosService.updateTodo(
-      req.params.list,
       req.params.id,
       req.body
-    ).then(mongoRes => {
-      if (mongoRes && mongoRes.ok) {
-        res.send(mongoRes)
-      }
+    )
+      .then(mongoRes => {
+        if (mongoRes && mongoRes.ok) {
+          res.send(mongoRes)
+        }
 
-      res.status(404).send();
-    }).catch(err => {
-      res.status(404).send();
-    });
+        res.status(404).send();
+      })
+      .catch(err => {
+        res.status(404).send();
+      });
   }
 
   delete(req, res) {
-    console.log('List name:', req.params.list);
-    console.log('Todo id:', req.params.id);
-    res.send('delete todo');
+    todosService.deleteTodo(req.params.list, req.params.id)
+      .then(todo => {
+        res.send(todo);
+      })
+      .catch(err => {
+        res.status(404).send();
+      });
   }
 }
 

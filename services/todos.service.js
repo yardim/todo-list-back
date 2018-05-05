@@ -24,21 +24,38 @@ class TodoListsService {
     });
   }
 
-  updateTodo(listName, todoID, params) {
-    return TodoListsModel.update({ 'todos._id': todoID }, {
-      '$set': {
-        'todos.$.value': params.value,
-        'todos.$.isDone': params.isDone,
+  updateTodo(todoID, params) {
+    const updateObj = {};
+
+    for (const key in params) {
+      if (params.hasOwnProperty(key)) {
+        updateObj[`todos.$.${key}`] = params[key];
       }
+    }
+
+    return TodoListsModel.update({ 'todos._id': todoID }, {
+      '$set': updateObj
     }, {
       new: true
     });
   }
 
   deleteTodo(listName, todoID) {
-    console.log('deleteTodo');
-    console.log('listName:', listName);
-    console.log('todoID:', todoID);
+    return TodoListsModel
+      .findOneAndUpdate({
+        name: listName
+      }, {
+        '$pull': {
+          'todos': {
+            _id: todoID
+          }
+        }
+      })
+      .then(todoList => {
+        return todoList.todos.find(todo => (
+          todo._id.toString() === todoID
+        ));
+      });
   }
 }
 
