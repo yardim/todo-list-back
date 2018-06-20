@@ -12,6 +12,9 @@ const todos = require('./routes/todos.router');
 
 
 app.use(cors());
+app.options('/users/create', cors({
+  exposedHeaders: ['x-auth']
+}));
 app.use(logger);
 app.use(bodyParser.json());
 

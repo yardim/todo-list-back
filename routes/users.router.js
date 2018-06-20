@@ -12,6 +12,8 @@ class UsersRouter {
   create(req, res) {
     usersService.createUser(req.body).then(token => {
       res
+        // .header('Access-Control-Expose-Headers', 'x-auth')
+        .header('x-auth', token)
         .status(200)
         .send({ token });
     }).catch(err => {
