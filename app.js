@@ -1,5 +1,6 @@
 const app = require('express')();
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const auth = require('./middleware/auth');
 const logger = require('./utilites/logger');
@@ -10,6 +11,7 @@ const todos = require('./routes/todos.router');
 
 
 
+app.use(cors());
 app.use(logger);
 app.use(bodyParser.json());
 

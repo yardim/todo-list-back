@@ -11,7 +11,9 @@ class UsersRouter {
 
   create(req, res) {
     usersService.createUser(req.body).then(token => {
-      res.header('x-auth', token).status(200).send();
+      res
+        .status(200)
+        .send({ token });
     }).catch(err => {
       console.error(`User creation error: ${err.message}`);
       res.status(400).send(err);
