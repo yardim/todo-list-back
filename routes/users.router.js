@@ -38,13 +38,20 @@ class UsersRouter {
   login(req, res) {
     usersService.getUserByCredentials(req.body).then(user => {
       if (user) {
-        return res.json(user);
+        return res.json({
+          token: user.tokens[0]
+        });
       }
 
-      res.status(404).send();
-    }).catch(err => {
-      console.error(`Login user error: ${err.message}`);
-      res.status(404).send(err);
+      console.error('User with this creds not found');
+      res.status(404).send({
+        errorMessage: 'User with this credentials not found'
+      });
+    }).catch(error => {
+      console.error(`Login user error: ${error.message}`);
+      res.status(404).send({
+        errorMessage: error.message
+      });
     });
   }
 
