@@ -4,7 +4,7 @@ const todoListsService = require('../services/todoLists.service');
 class TodoListsRouter {
   constructor(router) {
     router.post('/create', this.create);
-    router.get('/', this.read);
+    router.post('/', this.read);
     router.put('/update/:name', this.update);
     router.delete('/delete/:name', this.delete);
   }

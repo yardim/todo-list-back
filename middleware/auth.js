@@ -1,9 +1,7 @@
 const UsersService = require('../services/users.service');
 
 const auth = (req, res, next) => {
-  const token = req.get('x-auth');
-
-  UsersService.getUserByToken(token).then(user => {
+  UsersService.getUserByToken(req.body.token).then(user => {
     if (user) {
       req.user = user;
       return next();

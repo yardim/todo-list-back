@@ -40,7 +40,7 @@ class TodosRouter {
     )
       .then(mongoRes => {
         if (mongoRes && mongoRes.ok) {
-          res.send(mongoRes)
+          return res.send(mongoRes)
         }
 
         res.status(404).send();
