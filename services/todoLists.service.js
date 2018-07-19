@@ -2,12 +2,13 @@ const TodoListsModel = require('../models/todoLists.model');
 const _ = require('lodash');
 
 class TodoListsService {
-  createList(params) {
+  createList(params, userID) {
+    params.userID = userID;
     return new TodoListsModel(params).save();
   }
 
-  getTodoLists() {
-    return TodoListsModel.find().then(todoLists => {
+  getTodoLists(userID) {
+    return TodoListsModel.find({ userID }).then(todoLists => {
       return todoLists.map(list => ({
         name: list.name,
         todos: list.todos

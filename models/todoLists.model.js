@@ -7,6 +7,9 @@ const TodoListsSchema = mongoose.Schema({
     trim: true,
     unique: true,
   },
+  userID: {
+    type: String,
+  },
   todos: [
     {
       value: {

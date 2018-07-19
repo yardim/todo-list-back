@@ -10,7 +10,7 @@ class TodoListsRouter {
   }
 
   create(req, res) {
-    todoListsService.createList(req.body).then(todoList => {
+    todoListsService.createList(req.body, req.user._id).then(todoList => {
       res.json(todoList);
     }).catch(err => {
       res.status(400).json(err);
@@ -18,7 +18,7 @@ class TodoListsRouter {
   }
 
   read(req, res) {
-    todoListsService.getTodoLists().then(todoLists => {
+    todoListsService.getTodoLists(req.user._id).then(todoLists => {
       res.json(todoLists);
     }).catch(err => {
       res.status(404).json(err);
