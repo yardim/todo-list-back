@@ -6,7 +6,7 @@ class TodoListsRouter {
     router.post('/create', this.create);
     router.post('/', this.read);
     router.put('/update/:name', this.update);
-    router.delete('/delete/:name', this.delete);
+    router.post('/delete/:name', this.delete);
   }
 
   create(req, res) {
