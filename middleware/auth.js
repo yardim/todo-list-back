@@ -1,7 +1,7 @@
 const UsersService = require('../services/users.service');
 
 const auth = (req, res, next) => {
-  UsersService.getUserByToken(req.body.token).then(user => {
+  UsersService.getUserByToken(req.headers.authorization).then(user => {
     if (user) {
       req.user = user;
       return next();

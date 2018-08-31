@@ -35,8 +35,8 @@ class TodoListsService {
     });
   }
 
-  deleteTodoList(name) {
-    return TodoListsModel.findOneAndRemove({ name });
+  deleteTodoList(id) {
+    return TodoListsModel.findOneAndRemove({ _id: id });
   }
 }
 

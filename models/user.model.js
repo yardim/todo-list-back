@@ -35,7 +35,10 @@ UserSchema.methods.generateToken = function() {
   user.tokens.push(token);
 
   return user.save().then(() => {
-    return token;
+    return {
+      token,
+      name: user.name
+    };
   });
 };
 

@@ -10,10 +10,10 @@ class UsersRouter {
   }
 
   create(req, res) {
-    usersService.createUser(req.body).then(token => {
+    usersService.createUser(req.body).then(user => {
       res
         .status(200)
-        .send({ token });
+        .send(user);
     }).catch(err => {
       console.error(`User creation error: ${err.message}`);
       res.status(400).send(err);
@@ -39,6 +39,7 @@ class UsersRouter {
     usersService.getUserByCredentials(req.body).then(user => {
       if (user) {
         return res.json({
+          name: user.name,
           token: user.tokens[0]
         });
       }

@@ -4,16 +4,19 @@ const todoListsService = require('../services/todoLists.service');
 class TodoListsRouter {
   constructor(router) {
     router.post('/create', this.create);
-    router.post('/', this.read);
-    router.put('/update/:name', this.update);
-    router.post('/delete/:name', this.delete);
+    router.get('/', this.read);
+    router.put('/update/:id', this.update);
+    router.delete('/delete/:id', this.delete);
   }
 
   create(req, res) {
     todoListsService.createList(req.body, req.user._id).then(todoList => {
       res.json(todoList);
     }).catch(err => {
-      res.status(400).json(err);
+      res.status(400).json({
+        message: err.message,
+        code: err.code
+      });
     });
   }
 
@@ -38,7 +41,7 @@ class TodoListsRouter {
   }
 
   delete(req, res) {
-    todoListsService.deleteTodoList(req.params.name).then(todoList => {
+    todoListsService.deleteTodoList(req.params.id).then(todoList => {
       if (todoList) {
         res.json(todoList);
       }
