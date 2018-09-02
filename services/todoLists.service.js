@@ -27,8 +27,8 @@ class TodoListsService {
     });
   }
 
-  updateTodoList(name, params) {
-    return TodoListsModel.findOneAndUpdate({ name }, {
+  updateTodoList(_id, params) {
+    return TodoListsModel.findOneAndUpdate({ _id }, {
       ..._.pick(params, ['name'])
     }, {
       new: true

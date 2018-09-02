@@ -29,7 +29,8 @@ class TodoListsRouter {
   }
 
   update(req, res) {
-    todoListsService.updateTodoList(req.params.name, req.body).then(todoList => {
+    console.log(req.params.id, req.body.name);
+    todoListsService.updateTodoList(req.params.id, req.body).then(todoList => {
       if (todoList) {
         return res.json(todoList);
       }
