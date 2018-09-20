@@ -3,14 +3,15 @@ const router = require('express').Router();
 
 class TodosRouter {
   constructor(router) {
-    router.post('/:list', this.create);
+    router.post('/create/:listID', this.create);
     router.get('/:list', this.read);
-    router.put('/:id', this.update);
-    router.delete('/:list/:id', this.delete);
+    router.put('/update/:id', this.update);
+    router.delete('/delete/:list/:id', this.delete);
   }
 
   create(req, res) {
-    todosService.createTodo(req.params.list, req.body)
+    console.log(req.params.listID);
+    todosService.createTodo(req.params.listID, req.body)
       .then(todo => {
         res.send(todo);
       })

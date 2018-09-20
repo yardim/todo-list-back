@@ -2,8 +2,8 @@ const TodoListsModel = require('../models/todoLists.model');
 const _ = require('lodash');
 
 class TodoListsService {
-  createTodo(listName, params) {
-    return TodoListsModel.findOne({ name: listName }).then(todoList => {
+  createTodo(listID, params) {
+    return TodoListsModel.findOne({ _id: listID }).then(todoList => {
       todoList.todos.push({
         ..._.pick(params, ['value'])
       });
